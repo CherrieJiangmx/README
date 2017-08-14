@@ -108,4 +108,11 @@ JSON格式的文件。  `config.py`中`TRAIN_DATA` 为输入文件的路经 `/c
 >>>3.获得否定形式的短语，从而生成聚类器的json格式的输入文件。有两种方法：<br>
 >>>>3.1.`get_negative_and_json.py`: 根据客服说的第一句话，得到否定短语：`tmp_complain/投诉_访客问题否定短语_6_1-30.txt` 和对应的json格式的文件，`cluster_complain/6_1-30/否定短语/train_customer_first_negative_6_1-30.json`。<br>
 >>>>3.2.`transform_first_sentence_to_phrase_json.py`:根据客服说的第一句话，给费老生成第一句话的摘要，然后得到摘要的json文件。`cluster_complain/6_1-30/train_customer_first_6_1-30.json`。<br>
->>>4.
+
+>>`model_trainer.py`: 模型训练。<br>
+>>>`classifier.py`: 所有的分类聚类算法，`sklearn_Kmeans`的`n_clusters`参数可调节类别数。
+>>>`dict_creator.py`:生成字典，用于抽特征。
+>>>`trainer_kmeans.py`: 进行聚类，训练模型。
+>>>`evaluation-fei.py`: 生成的结果里面没有类摘要，要根据这个生成的结果，给老费，生成摘要后再加进去。
+>>>`evaluation.py`:如果已经有了类摘要， 根据类摘要和生成的`predict.txt`聚类结果，生成最终的excel文件 --> `投诉_聚类_访客问题否定短语_6_1-30.xls`，其他的文件都是每次跑了结果之后根据配置，手动重命名的。
+
