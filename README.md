@@ -125,7 +125,7 @@ JSON格式的文件。  `config.py`中`TRAIN_DATA` 为输入文件的路经 `/c
 ----
 第一次执行时，每次执行一个文件，都注意，去config.py里查看一下输入输出的位置，是不是自己要的文件。
 
-# 数据预处理，得到输入文件，服务器上跑
+## 数据预处理，得到输入文件，服务器上跑
 ```
 cd /home/mengxiao/Online_chat_classification/src/data_preprocessor  
 python read_json_from_excel.py   # 得到原始数据的json格式，拿到需要的字段。注意这里的输入，需要哪几天的数据就把对应的excel放到对应的文件夹。
@@ -135,7 +135,7 @@ python transform_first_sentence_to_phrase_json.py # 从老费那边拿否定摘�
 或
 python get_negative_and_json.py  # 自己生成否定短语和对应的json文件。
 ```
-# 模型训练，服务器上跑
+## 模型训练，服务器上跑
 ```
 cd ../model_trainer
 vi config.py    # 查看`TRAIN_DATA`，修改成自己要的输入文件路径
@@ -144,7 +144,7 @@ python trainer_kmeans.py  # 训练模型，得到聚类结果`predict.txt`，如
 python evaluation-fei.py  # 生成没有摘要的excel文件，下载到本地看。
 ```
 
-# 数据统计，在本地跑比较方便,注意输入输出。
+## 数据统计，在本地跑比较方便，注意输入输出。
 ```
 python staticstics_top_from_cluster.py  # top商户产品区域根据类别的汇总
 python staticstics_top_label_by_time.py # 得到某一天的数据根据24小时的数据汇总
