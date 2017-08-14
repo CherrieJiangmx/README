@@ -99,7 +99,7 @@ JSON格式的文件。  `config.py`中`TRAIN_DATA` 为输入文件的路经 `/c
 代码描述
 ---
 >`src`: `source` 目录。<br>
->> `config.py`存放所有的文件路径。本地和服务器的根目录已经配好，如果需要添加新的路径，只需调用`config.XXX`就可以，在服务器和本地都能跑。<br>
+>>`config.py`存放所有的文件路径。本地和服务器的根目录已经配好，如果需要添加新的路径，只需调用`config.XXX`就可以，在服务器和本地都能跑。<br>
 >>`util.py` 存放所有的小工具，包含：去掉标点，url，停词，根据dict和词的list得到稀疏表示的特征等。<br>
 >>文件夹外的，除上述两个文件外的，不用管，包含：分类的一些代码，类的定义，一些测试代码。<br>
 >>`data_preprocessor`:数据预处理。<br>
@@ -109,10 +109,32 @@ JSON格式的文件。  `config.py`中`TRAIN_DATA` 为输入文件的路经 `/c
 >>>>3.1.`get_negative_and_json.py`: 根据客服说的第一句话，得到否定短语：`tmp_complain/投诉_访客问题否定短语_6_1-30.txt` 和对应的json格式的文件，`cluster_complain/6_1-30/否定短语/train_customer_first_negative_6_1-30.json`。<br>
 >>>>3.2.`transform_first_sentence_to_phrase_json.py`:根据客服说的第一句话，给费老生成第一句话的摘要，然后得到摘要的json文件。`cluster_complain/6_1-30/train_customer_first_6_1-30.json`。<br>
 
->>`model_trainer.py`: 模型训练。<br>
+>>`model_trainer`: 模型训练。<br>
 >>>`classifier.py`: 所有的分类聚类算法，`sklearn_Kmeans`的`n_clusters`参数可调节类别数。<br>
 >>>`dict_creator.py`:生成字典，用于抽特征。<br>
 >>>`trainer_kmeans.py`: 进行聚类，训练模型。<br>
 >>>`evaluation-fei.py`: 生成的结果里面没有类摘要，要根据这个生成的结果，给老费，生成摘要后再加进去。<br>
 >>>`evaluation.py`:如果已经有了类摘要， 根据类摘要和生成的`predict.txt`聚类结果，生成最终的excel文件 --> `投诉_聚类_访客问题否定短语_6_1-30.xls`，其他的文件都是每次跑了结果之后根据配置，手动重命名的。<br>
+
+>>`data_analysis` :数据分析。
+>>> `staticstics_top_from_cluster.py` 根据得到的结果excel文件，得到top商户产品区域根据类别的汇总。`网络客服对话分析类别汇总1-30.xls`
+>>> `staticstics_top_label_by_time.py` 根据费老的`result.txt`文件，结合原始数据文件（在`org/6.1-30-product`文件夹），得到某一天的数据根据24小时的数据汇总。
+
+
+执行过程
+----
+第一次执行时，每次执行一个文件，都注意，去config.py里查看一下输入输出的位置，是不是自己要的文件。
+```
+# 数据预处理，得到输入文件
+cd /home/mengxiao/Online_chat_classification/data_preprocessor  
+python read_json_from_excel.py   # 得到原始数据的json格式，拿到需要的字段。注意这里的输入，需要哪几天的数据就把对应的excel放到对应的文件夹。
+python get_customer_first_and_json.py # 得到客户说的第一句话的txt文件。
+# 下面两者择一种运行
+python transform_first_sentence_to_phrase_json.py # 从老费那边拿否定摘要，生成聚类器的输入json文件
+或
+python get_negative_and_json.py #自己生成否定短语和对应的json文件。
+```
+
+
+
 
