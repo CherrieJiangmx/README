@@ -15,7 +15,7 @@ python2.7 (最好用anaconda2)<br>
 ---
 >`Data`: 存放所有的数据；<br>
 >>`tmp_complain`存放中间结果，例如：客户说的第一句话的`txt`格式文件，抽取的否定短语，费老抽取的第一句话摘要等；<br>
->>`cluster_complain`存放用于聚类的输入，和产生的聚类结果的输出，费老生成的摘要信息（摘要信息.txt），以及各种统计结果。<br>
+>>`cluster_complain`存放用于聚类的输入，和产生的聚类结果的输出，费老生成的摘要信息（摘要信息.txt），以及各种统计结果，默认特征的记录。<br>
 >>`org` 里面存放原始的excel数据，`6.1-30`表示6月1号到30号的所有数据，`6.1-30-product`表示6月1号到30号的所有数据，里面有商户产品和区域信息<br>
 >>`org_json`里面存放由原始excel表格生成的json格式的文件，包含:`产品`，`序号`，`商户`，`对话内容`，`区域`，`客服分类`。便于后续处理。<br>
 >>`combined`里面放的是放的是之前用于分类器的输入文件，聚类可以不用管。<br>
@@ -124,17 +124,31 @@ JSON格式的文件。  `config.py`中`TRAIN_DATA` 为输入文件的路经 `/c
 执行过程
 ----
 第一次执行时，每次执行一个文件，都注意，去config.py里查看一下输入输出的位置，是不是自己要的文件。
+
+# 数据预处理，得到输入文件，服务器上跑
 ```
-# 数据预处理，得到输入文件
-cd /home/mengxiao/Online_chat_classification/data_preprocessor  
+cd /home/mengxiao/Online_chat_classification/src/data_preprocessor  
 python read_json_from_excel.py   # 得到原始数据的json格式，拿到需要的字段。注意这里的输入，需要哪几天的数据就把对应的excel放到对应的文件夹。
 python get_customer_first_and_json.py # 得到客户说的第一句话的txt文件。
 # 下面两者择一种运行
 python transform_first_sentence_to_phrase_json.py # 从老费那边拿否定摘要，生成聚类器的输入json文件
 或
-python get_negative_and_json.py #自己生成否定短语和对应的json文件。
+python get_negative_and_json.py  # 自己生成否定短语和对应的json文件。
+```
+# 模型训练，服务器上跑
+```
+cd ../model_trainer
+vi config.py    # 查看`TRAIN_DATA`，修改成自己要的输入文件路径
+python dict_creator.py   # 生成字典，想要在本地看，可以下载到本地
+python trainer_kmeans.py  # 训练模型，得到聚类结果`predict.txt`，如果想改特征，可在`trainer_kmeans.py`里面改。
+python evaluation-fei.py  # 生成没有摘要的excel文件，下载到本地看。
 ```
 
+# 数据统计，在本地跑比较方便,注意输入输出。
+```
+python staticstics_top_from_cluster.py  # top商户产品区域根据类别的汇总
+python staticstics_top_label_by_time.py # 得到某一天的数据根据24小时的数据汇总
+```
 
 
 
