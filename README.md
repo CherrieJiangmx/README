@@ -38,7 +38,8 @@ python2.7 <br>
 >> `emb_wd_google` ：用Google的工具在所有对话数据上跑的词向量；<br>
 >> `training_data` ：用所有6.1-30对话数据整理的，跑词向量的输入文件。<br>
 
->`feature`和`modle`不用管，中间结果。<br>
+>`feature`:特征文件。<br>
+>`modle`:存储的模型。<br>
 >`result` ：分类和聚类的结果文件：<br>
 >> 聚类：`predict.txt` 存放聚类结果,一行一个聚类的类别，结果和输入数据对应一致。<br>
 >> 分类：`predict.txt` 存放分类结果，一行一个分类的类标。<br>
