@@ -118,7 +118,7 @@ JSON格式的文件。  `config.py`中`TRAIN_DATA` 为输入文件的路经 `/c
 >>>`evaluation.py`:如果已经有了类摘要， 根据类摘要和生成的`predict.txt`聚类结果，生成最终的excel文件 --> `投诉_聚类_访客问题否定短语_6_1-30.xls`，其他的文件都是每次跑了结果之后根据配置，手动重命名的。<br>
 
 >>`data_analysis` :数据分析。
->>> `staticstics_top_from_cluster.py` 根据得到的结果excel文件，得到top商户产品区域根据类别的汇总。`网络客服对话分析类别汇总1-30.xls`
+>>> `staticstics_top_from_cluster.py` 根据得到的结果excel文件，得到top商户产品区域根据类别的汇总。`网络客服对话分析类别汇总1-30.xls`<br>
 >>> `staticstics_top_label_by_time.py` 根据费老的`result.txt`文件，结合原始数据文件（在`org/6.1-30-product`文件夹），得到某一天的数据根据24小时的数据汇总。
 
 
