@@ -35,7 +35,7 @@ python2.7 <br>
 >`embed`: 存放所有的词向量：<br>
 >> `emb_ch`：字符的词向量；<br>
 >> `emb_wd` ：词的词向量；<br>
->> `emb_wd` ：用Google的工具在所有对话数据上跑的词向量；<br>
+>> `emb_wd_google` ：用Google的工具在所有对话数据上跑的词向量；<br>
 >> `training_data` ：用所有6.1-30对话数据整理的，跑词向量的输入文件。<br>
 
 >`feature`和`modle`不用管，中间结果。<br>
